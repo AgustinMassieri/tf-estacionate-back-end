@@ -1,9 +1,12 @@
 const express = require('express');
-const { getUsers, createUser } = require('../controllers/users');
+const { getUsers, createUser, getUser, updateUser, deleteUser } = require('../controllers/users');
 const router = express.Router();
-const { validacionCreateUser } = require('../validators/users');
+const { validatorCreateUser, validatorGetUser } = require('../validators/users');
 
 router.get("/", getUsers);
-router.post("/", validacionCreateUser, createUser);
+router.get("/:id", validatorGetUser, getUser);
+router.post("/", validatorCreateUser, createUser);
+router.put("/:id", validatorGetUser, validatorCreateUser, updateUser);
+router.delete("/:id", validatorGetUser, deleteUser);
 
 module.exports = router;
