@@ -1,27 +1,25 @@
 const { check } = require("express-validator");
 const validateResults = require("../utils/handleValidator")
 
-const validatorCreateUser = [
-    check("firstName")
+const validatorCreateParking = [
+    check("name")
     .exists()
     .notEmpty(),
-    check('lastName')
+    check('location')
     .exists()
     .notEmpty(),
-    check('email')
+    check('numberOfParkingSpacesAvailable')
     .exists()
-    .notEmpty()
-    .isEmail(),
-    check('password')
+    .notEmpty(),
+    check('owner')
     .exists()
-    .notEmpty()
-    .isLength({min: 5}),
+    .notEmpty(),
     (req, res, next) => {
         return validateResults(req, res, next);
     }
 ];
 
-const validatorGetUser = [
+const validatorGetParking = [
     check('id')
     .exists()
     .notEmpty()
@@ -31,4 +29,4 @@ const validatorGetUser = [
     }
 ];
 
-module.exports = {validatorCreateUser, validatorGetUser};
+module.exports = {validatorCreateParking, validatorGetParking};
