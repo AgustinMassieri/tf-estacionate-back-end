@@ -24,8 +24,7 @@ const getParking = async (req, res) => {
 
 const createParking = async (req, res) => {
     try{
-        const body = matchedData(req)
-        const data = await parkingModel.create(body);
+        const data = await parkingModel.create(req.body);
         res.send({data});
     } catch(e){
         handleHttpError(res, 'ERROR_CREATE_PARKING', 500);

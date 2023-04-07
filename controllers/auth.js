@@ -41,8 +41,9 @@ const loginController = async (req, res) => {
 
         const data = {
             token: await tokenSign(user),
-            user
-        }
+            user,
+            status: 200
+        };
 
         res.send({data});
 

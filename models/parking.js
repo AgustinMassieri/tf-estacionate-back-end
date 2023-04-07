@@ -15,7 +15,17 @@ const parkingSchema = new mongoose.Schema(
         },
         owner:{
             type: String
-        }
+        },
+        priceList:[{
+            duration: {
+                type: String,
+                enum: ['1 hora', '6 horas', '12 horas', '1 dia']
+            },
+            price:{
+                type: Number,
+                min: 0
+            }
+        }]
     },
     {
         timestamps: true,
