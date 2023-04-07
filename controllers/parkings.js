@@ -4,8 +4,9 @@ const { handleHttpError } = require('../utils/handleErrors');
 
 const getParkings = async (req, res) => {
     try{
+        const user = req.user;
         const data = await parkingModel.find({});
-        res.send({data});        
+        res.send({ data, user });        
     } catch(e){
         handleHttpError(res, 'ERROR_GET_PARKINGS', 500);
     }

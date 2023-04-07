@@ -24,17 +24,14 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
     try{
-        req = matchedData(req);
-        const user = await usersModel.findOne({email: req.email}).select('firstName email password role');
-
+        const user = await usersModel.findOne({email: req.body.email}).select('firstName email password role');
         if(!user){
             handleHttpError(res, 'USER_NOT_EXISTS', 404);
             return;
         } 
-
         const hashPassword = user.get('password');
-        const checkPassword = await compare(req.password, hashPassword);
-
+        const checkPassword = await compare(req.body.password, hashPassword);
+        
         if(!checkPassword){
             handleHttpError(res, 'PASSWORD_INVALID', 401);
             return;
