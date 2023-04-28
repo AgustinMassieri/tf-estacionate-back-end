@@ -16,7 +16,7 @@ const registerController = async (req, res) => {
             token: await tokenSign(dataUser),
             user: dataUser
         }
-        res.send({data});
+        res.send(data);
     } catch(e){
         handleHttpError(res, 'ERROR_REGISTER_USER', 500);
     }
@@ -45,7 +45,7 @@ const loginController = async (req, res) => {
             status: 200
         };
 
-        res.send({data});
+        res.send(data);
 
     } catch(e){
         handleHttpError(res, 'ERROR_LOGIN_USER', 500);

@@ -1,4 +1,3 @@
-const { matchedData } = require('express-validator');
 const { parkingModel } = require('../models');
 const { handleHttpError } = require('../utils/handleErrors');
 
