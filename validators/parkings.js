@@ -29,4 +29,12 @@ const validatorGetParking = [
     }
 ];
 
-module.exports = {validatorCreateParking, validatorGetParking};
+const validatorUpdateParking = [
+    check('numberOfParkingSpacesAvailable')
+    .isNumeric({min: 0}),
+    (req, res, next) => {   
+        return validateResults(req, res, next);
+    }
+];
+    
+module.exports = {validatorCreateParking, validatorGetParking, validatorUpdateParking};
