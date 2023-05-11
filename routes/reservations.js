@@ -5,6 +5,6 @@ const { getReservations, createReservation } = require('../controllers/reservati
 const checkRol = require('../middleware/role');
 
 router.get("/",  getReservations);
-router.post("/", checkRol(["admin", "user"]), createReservation);
+router.post("/", createReservation);
 
 module.exports = router;

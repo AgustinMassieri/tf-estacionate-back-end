@@ -12,10 +12,12 @@ const getReservations = async (req, res) => {
 }
 
 const createReservation = async (req, res) => {
+    console.log(req.body)
     try{
         const data = await reservationModel.create(req.body);
         res.send({data});
     } catch(e){
+        console.log(e)
         handleHttpError(res, 'ERROR_CREATE_RESERVATION', 500);
     }
 }
