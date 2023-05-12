@@ -11,6 +11,17 @@ const getReservations = async (req, res) => {
     }
 }
 
+const getReservationsByUserId = async (req, res) => {
+    try{
+        const user = req.user;
+        const data = await reservationModel.find({userId: req.params.id});
+        console.log('data', data)
+        res.send({ data, user });        
+    } catch(e){
+        handleHttpError(res, 'ERROR_GET_RESERVATIONS', 500);
+    }
+}
+
 const createReservation = async (req, res) => {
     try{
         const data = await reservationModel.create(req.body);
@@ -20,4 +31,4 @@ const createReservation = async (req, res) => {
     }
 }
 
-module.exports = { getReservations, createReservation };
+module.exports = { getReservations, createReservation, getReservationsByUserId };
