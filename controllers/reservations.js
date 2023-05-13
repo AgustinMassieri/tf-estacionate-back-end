@@ -15,7 +15,6 @@ const getReservationsByUserId = async (req, res) => {
     try{
         const user = req.user;
         const data = await reservationModel.find({userId: req.params.id});
-        console.log('data', data)
         res.send({ data, user });        
     } catch(e){
         handleHttpError(res, 'ERROR_GET_RESERVATIONS', 500);
