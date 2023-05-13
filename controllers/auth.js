@@ -24,7 +24,7 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
     try{
-        const user = await usersModel.findOne({email: req.body.email}).select('firstName email password role');
+        const user = await usersModel.findOne({email: req.body.email}).select('firstName lastName email password role');
         if(!user){
             handleHttpError(res, 'USER_NOT_EXISTS', 404);
             return;
