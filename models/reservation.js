@@ -6,9 +6,6 @@ const reservationSchema = new mongoose.Schema(
         parkingId:{
             type: String
         },
-        parkingName:{
-            type: String
-        },
         userId:{
             type: String
         },
