@@ -57,4 +57,15 @@ const createReservation = async (req, res) => {
     }
 }
 
-module.exports = { getReservations, createReservation, getReservationsByUserId };
+const cancelReservation = async (req, res) => {
+  try{
+    const data = await reservationModel.findByIdAndUpdate(
+        req.params.id, req.body
+    );
+    res.send({data});
+} catch(e){
+    handleHttpError(res, 'ERROR_UPDATE_RESERVATION', 500);
+}
+}
+
+module.exports = { getReservations, createReservation, getReservationsByUserId, cancelReservation };
