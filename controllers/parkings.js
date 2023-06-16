@@ -1,5 +1,7 @@
 const { parkingModel } = require('../models');
 const { handleHttpError } = require('../utils/handleErrors');
+const { reservationModel } = require('../models');
+
 
 const getParkings = async (req, res) => {
     try{
@@ -50,4 +52,29 @@ const deleteParking = async (req, res) => {
     }
 }
 
-module.exports = { getParkings, getParking, createParking, updateParking, deleteParking };
+const getParkingsWithAvailabiltyByDate = async (req, res) => {
+    try {
+        // Obtén todas las reservas para la fecha especificada
+        const reservations = await reservationModel.find({ date: req.params.fecha, status: 'Registrada' });
+
+        // Obtén todos los parkings
+        const parkings = await parkingModel.find();
+
+        // Itera sobre cada parking y realiza la resta
+        parkings.map((parking) => {
+            const matchingReservations = reservations.filter(
+                (reservation) => reservation.parkingId === parking._id.toString()
+            );
+            const reservedSpaces = matchingReservations.length;
+            const availableSpaces = parking.numberOfParkingSpacesAvailable - reservedSpaces;
+            parking.numberOfParkingSpacesAvailable = availableSpaces;
+        });
+        res.send({parkings});
+
+    } catch (error) {
+        console.error('Error al obtener la disponibilidad del parking:', error);
+        throw error;
+    }   
+}
+
+module.exports = { getParkings, getParking, createParking, updateParking, deleteParking, getParkingsWithAvailabiltyByDate };
