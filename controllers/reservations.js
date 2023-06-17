@@ -38,7 +38,8 @@ const getReservationsByUserId = async (req, res) => {
           ...reservation.toObject(),
           parkingName,
           location: parkingLocation,
-          userName: user.firstName + ' ' + user.lastName
+          userName: user.firstName + ' ' + user.lastName,
+          price: parkingResult.price
         };
       });
       res.send({ data });
