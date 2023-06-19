@@ -74,7 +74,28 @@ const getParkingsWithAvailabiltyByDate = async (req, res) => {
     } catch (error) {
         console.error('Error al obtener la disponibilidad del parking:', error);
         throw error;
-    }   
+    }
 }
 
-module.exports = { getParkings, getParking, createParking, updateParking, deleteParking, getParkingsWithAvailabiltyByDate };
+const addRateToParking = async (req, res) => {
+    try {
+      const data = await parkingModel.find(req.params.id);
+      if (!data) {
+        return handleHttpError(res, 'ERROR_PARKING_NOT_FOUND', 404);
+      }
+  
+      if (!Array.isArray(data.rating)) {
+        data.rating = [];
+      }
+  
+      data.rating.push(req.body.rate);
+  
+      await data.save();
+  
+      res.send({ data });
+    } catch (e) {
+      handleHttpError(res, 'ERROR_ADD_RATE', 500);
+    }
+}
+
+module.exports = { getParkings, getParking, createParking, updateParking, deleteParking, getParkingsWithAvailabiltyByDate, addRateToParking };

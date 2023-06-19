@@ -18,7 +18,10 @@ const parkingSchema = new mongoose.Schema(
         },
         price:{
             type: String
-        }
+        },
+        rating:{
+            type: [Number]
+        }            
     },
     {
         timestamps: true,

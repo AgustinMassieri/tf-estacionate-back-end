@@ -37,6 +37,7 @@ const getReservationsByUserId = async (req, res) => {
         return {
           ...reservation.toObject(),
           parkingName,
+          parkingId: parkingResult._id,
           location: parkingLocation,
           userName: user.firstName + ' ' + user.lastName,
           price: parkingResult.price
