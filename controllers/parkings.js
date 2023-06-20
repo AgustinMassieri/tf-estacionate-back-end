@@ -79,11 +79,12 @@ const getParkingsWithAvailabiltyByDate = async (req, res) => {
 
 const addRateToParking = async (req, res) => {
     try {
-      const data = await parkingModel.find(req.params.id);
+      const data = await parkingModel.findById(req.params.id);
+      
       if (!data) {
         return handleHttpError(res, 'ERROR_PARKING_NOT_FOUND', 404);
       }
-  
+
       if (!Array.isArray(data.rating)) {
         data.rating = [];
       }
