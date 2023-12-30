@@ -16,6 +16,12 @@ const validatorRegisterUser = [
     .exists()
     .notEmpty()
     .isLength({min: 5}),
+    check('age')
+    .exists()
+    .notEmpty(),
+    check('sex')
+    .exists()
+    .notEmpty(),
     (req, res, next) => {
         return validateResults(req, res, next);
     }  

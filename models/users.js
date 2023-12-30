@@ -20,7 +20,13 @@ const userSchema = new mongoose.Schema(
         role:{
             type: ["user", "admin"],
             default: "user"
-        }
+        },
+        sex:{
+            type: String,
+        },
+        age:{
+            type: Number,
+        },
     },
     {
         timestamps: true,

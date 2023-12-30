@@ -59,7 +59,7 @@ const createReservation = async (req, res) => {
     }
 }
 
-const cancelReservation = async (req, res) => {
+const updateReservation = async (req, res) => {
   try{
     const data = await reservationModel.findByIdAndUpdate(
         req.params.id, req.body
@@ -70,4 +70,4 @@ const cancelReservation = async (req, res) => {
 }
 }
 
-module.exports = { getReservations, createReservation, getReservationsByUserId, cancelReservation };
+module.exports = { getReservations, createReservation, getReservationsByUserId, updateReservation };
