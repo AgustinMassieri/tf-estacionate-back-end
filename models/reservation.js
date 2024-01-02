@@ -17,6 +17,9 @@ const reservationSchema = new mongoose.Schema(
         },
         date:{
             type: String
+        },
+        price:{
+            type: Number
         }
     },
     {

@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema(
         age:{
             type: Number,
         },
+        profilePicture:{
+            type: String,
+        },
     },
     {
         timestamps: true,
