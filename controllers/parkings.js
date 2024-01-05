@@ -55,28 +55,31 @@ const deleteParking = async (req, res) => {
 
 const getParkingsWithAvailabiltyByDate = async (req, res) => {
     try {
-        // Obtén todas las reservas para la fecha especificada
-        const reservations = await reservationModel.find({ date: req.params.fecha, status: 'Registrada' });
-
-        // Obtén todos los parkings
-        const parkings = await parkingModel.find();
-
-        // Itera sobre cada parking y realiza la resta
-        parkings.map((parking) => {
-            const matchingReservations = reservations.filter(
-                (reservation) => reservation.parkingId === parking._id.toString()
-            );
-            const reservedSpaces = matchingReservations.length;
-            const availableSpaces = parking.numberOfParkingSpacesAvailable - reservedSpaces;
-            parking.numberOfParkingSpacesAvailable = availableSpaces;
-        });
-        res.send({parkings});
-
+      const reservations = await reservationModel.find({ date: req.params.fecha, status: 'Registrada' });
+  
+      const parkings = await parkingModel.find();
+  
+      const parkingsWithAvailability = parkings.map((parking) => {
+        const matchingReservations = reservations.filter(
+          (reservation) => reservation.parkingId === parking._id.toString()
+        );
+        const reservedSpaces = matchingReservations.length;
+        const availableSpaces = parking.numberOfParkingSpacesAvailable - reservedSpaces;
+        
+        return {
+          ...parking.toObject(),
+          availableSpaces
+        };
+      });
+  
+      res.send({ parkings: parkingsWithAvailability });
+  
     } catch (error) {
-        console.error('Error al obtener la disponibilidad del parking:', error);
-        throw error;
+      console.error('Error al obtener la disponibilidad del parking:', error);
+      res.status(500).send('Error al obtener la disponibilidad del parking');
     }
-}
+  }
+  
 
 const addRateToParking = async (req, res) => {
     try {
