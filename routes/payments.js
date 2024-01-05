@@ -1,4 +1,6 @@
 const express = require('express');
+const { handleHttpError } = require('../utils/handleErrors');
+const { paymentModel } = require('../models');
 const router = express.Router();
 
 router.post("/createOrder", async (req, res) => {
@@ -15,10 +17,6 @@ router.post("/createOrder", async (req, res) => {
   }
 });
 
-router.get("/success", (req, res) => res.send("Success"));
-router.get("/failure", (req, res) => res.send("Failure"));
-router.get("/pending", (req, res) => res.send("Pending"));
-
 router.post("/webhook", async (req, res) => {
   try {
     const { recieveWebhook } = await import('../utils/mercadoPagoUtils.mjs');
@@ -28,5 +26,17 @@ router.post("/webhook", async (req, res) => {
     res.status(500).send({ error: 'Error creating order' });
   }
 })
+
+router.put("/updatePaymentByPreferenceId/:id", async (req, res) => {
+  try {
+    const data = await paymentModel.findOneAndUpdate(
+      { preferenceId: req.params.id },
+      req.body
+    );
+    res.send({ data });
+  } catch (e) {
+    handleHttpError(res, "ERROR_UPDATE_PAYMENT", 500);
+  }
+});
 
 module.exports = router;

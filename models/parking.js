@@ -21,7 +21,23 @@ const parkingSchema = new mongoose.Schema(
         },
         rating:{
             type: [Number]
-        }, 
+        },
+        leaveKeys: {
+            type: Boolean,
+            default: false
+          },
+          open24Hours: {
+            type: Boolean,
+            default: false
+          },
+          openingTime: {
+            type: String,
+            required: function() { return !this.open24Hours; }
+          },
+          closingTime: {
+            type: String,
+            required: function() { return !this.open24Hours; }
+          }
     },
     {
         timestamps: true,

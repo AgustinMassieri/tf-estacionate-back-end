@@ -6,6 +6,9 @@ const paymentSchema = new mongoose.Schema(
         reservationId:{
             type: String
         },
+        preferenceId:{
+            type: String
+        },
         status:{
             type: String,
             enum: ['pending', 'approved', 'rejected'],

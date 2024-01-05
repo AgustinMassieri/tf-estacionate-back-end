@@ -34,9 +34,10 @@ const createParking = async (req, res) => {
 
 const updateParking = async (req, res) => {
     try{
-        const data = await parkingModel.findByIdAndUpdate(
-            req.params.id, req.body
-        );
+        const data = await parkingModel.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body
+          );
         res.send({data});
     } catch(e){
         handleHttpError(res, 'ERROR_UPDATE_PARKING', 500);

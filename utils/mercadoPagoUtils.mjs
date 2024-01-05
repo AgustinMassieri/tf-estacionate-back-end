@@ -18,11 +18,12 @@ export const createOrder = async (reservationId, price) => {
             title: "Estacionamiento - Estacionate",
             quantity: 1,
             unit_price: price,
+            description: reservationId,
           },
         ],
         back_urls: {
-          success: "http://localhost:3000/reservations",
-          failure: "http://localhost:3000/reservations",
+          success: "http://localhost:3000/reservations/success?reservationId=" + reservationId,
+          failure: "http://localhost:3000/reservations/failure?reservationId=" + reservationId,
           pending: "http://localhost:3000/reservations",
         },
         notification_url: "https://a154-2800-810-43d-f3-750e-fea8-423d-9b1f.ngrok-free.app/api/payments/webhook",
@@ -31,6 +32,7 @@ export const createOrder = async (reservationId, price) => {
 
     const payment = {
       reservationId: reservationId,
+      preferenceId: response.id,
       url: response.init_point,
     };
 
@@ -44,13 +46,14 @@ export const createOrder = async (reservationId, price) => {
 };
 
 export const recieveWebhook = async (req, res) => {
+    console.log(req);
 
     try {
         const payment = req.query;
         console.log(payment);
         if (payment.type === "payment") {
-          const data = await mercadopago.payment.findById(payment["data.id"]);
-          console.log(data);
+          //const data = await paymentModel.findOneAndUpdate(
+
         }
     
         res.sendStatus(204);

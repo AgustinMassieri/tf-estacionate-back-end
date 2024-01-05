@@ -13,5 +13,4 @@ router.put("/:id", authMiddleware, updateParking);
 router.put("/AddRate/:id", authMiddleware, addRateToParking);
 router.delete("/:id", authMiddleware, deleteParking);
 
-
 module.exports = router;
