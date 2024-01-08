@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema(
         profilePicture:{
             type: String,
         },
+        secretToken:{
+            type: String
+        }
     },
     {
         timestamps: true,

@@ -79,10 +79,22 @@ const updateUser = async (req, res) => {
       req.body
     );
     res.send({ data });
+    res.status(200)
+    return 200;
   } catch (e) {
     handleHttpError(res, "ERROR_UPDATE_USER", 500);
   }
 };
+
+const getUserByEmail = async (req, res) => {
+  try{
+      const data = await usersModel.findOne({'email': req.params.email});
+      res.send({data});    
+
+  } catch(e){
+      handleHttpError(res, 'ERROR_GET_USER_BY_EMAIL', 500);
+  }
+}
 
 const uploadProfilePic = async (req, res) => {
   try {
@@ -126,5 +138,6 @@ module.exports = {
   getUser,
   deleteUser,
   updateUser,
-  uploadProfilePic
+  uploadProfilePic,
+  getUserByEmail
 };
