@@ -5,7 +5,7 @@ const { getReservations, createReservation, getReservationsByUserId, updateReser
 const checkRol = require('../middleware/role');
 
 router.get("/",  getReservations);
-router.get("/:id",  getReservationsByUserId);
+router.get("/user/:id",  getReservationsByUserId);
 router.post("/", createReservation);    
 router.put("/:id", updateReservation);
 router.get("/chart/counts", getReservationCountsByMonth);

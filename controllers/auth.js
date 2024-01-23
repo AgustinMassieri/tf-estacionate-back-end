@@ -131,6 +131,21 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const updateUserPassword = async (req, res) => {
+  try{
+      const newPassword = req.body.password;
+      const password = await encrypt(newPassword);
+
+      const data = await usersModel.findOneAndUpdate(
+          { "_id": req.params.id }, {"password": password}
+      );
+      res.send({data});
+      res.status(200)
+  } catch(e){
+      handleHttpError(res, 'ERROR_UPDATE_USER_PASSWORD', 500);
+  }
+}
+
 module.exports = {
   registerController,
   loginController,
@@ -139,5 +154,6 @@ module.exports = {
   deleteUser,
   updateUser,
   uploadProfilePic,
-  getUserByEmail
+  getUserByEmail,
+  updateUserPassword
 };

@@ -17,15 +17,15 @@ const userSchema = new mongoose.Schema(
             type: String,
             select: false
         },
-        role:{
-            type: ["user", "admin"],
-            default: "user"
+        role: {
+            type: String,
+            enum: ["user", "admin"]
         },
         sex:{
             type: String,
         },
-        age:{
-            type: Number,
+        phone:{
+            type: String,
         },
         profilePicture:{
             type: String,

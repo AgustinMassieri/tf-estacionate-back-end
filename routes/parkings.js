@@ -7,10 +7,10 @@ const checkRol = require('../middleware/role');
 
 router.get("/", authMiddleware, getParkings);
 router.get("/:id", authMiddleware, validatorGetParking, getParking);
-router.get("/ByDate/:fecha", authMiddleware, getParkingsWithAvailabiltyByDate);
+router.get("/byDate/:fecha", authMiddleware, getParkingsWithAvailabiltyByDate);
 router.post("/", authMiddleware, checkRol(["admin"]), validatorCreateParking, createParking);
 router.put("/:id", authMiddleware, updateParking);
-router.put("/AddRate/:id", authMiddleware, addRateToParking);
+router.put("/addRate/:id", authMiddleware, addRateToParking);
 router.delete("/:id", authMiddleware, deleteParking);
 
 module.exports = router;
